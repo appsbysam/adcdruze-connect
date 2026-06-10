@@ -25,9 +25,9 @@ function MorePage() {
     navigate({ to: "/auth", replace: true });
   }
 
-  const links = [
-    { icon: HeartHandshake, label: "Volunteer with ADC", color: "#7C3AED" },
-    { icon: Gift, label: "Donate", color: "var(--brand-events)" },
+  const links: Array<{ icon: typeof HeartHandshake; label: string; color: string; to?: "/impact/volunteer" | "/impact/donate" }> = [
+    { icon: HeartHandshake, label: "Volunteer with ADC", color: "var(--brand-home)", to: "/impact/volunteer" },
+    { icon: Gift, label: "Donate", color: "#C9A227", to: "/impact/donate" },
     { icon: Shield, label: "Privacy policy", color: "var(--brand-groups)" },
     { icon: FileText, label: "Terms of use", color: "var(--brand-directory)" },
     { icon: Settings, label: "Account settings", color: "#64748B" },
@@ -80,12 +80,21 @@ function MorePage() {
         <div className="bg-card border rounded-2xl shadow-soft divide-y divide-border overflow-hidden">
           {links.map((l) => {
             const Icon = l.icon;
-            return (
-              <button key={l.label} className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-muted/40 text-left">
+            const content = (
+              <>
                 <span className="size-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "color-mix(in oklab, " + l.color + " 12%, transparent)" }}>
                   <Icon className="size-4" style={{ color: l.color }} />
                 </span>
                 <span className="text-sm font-medium flex-1">{l.label}</span>
+              </>
+            );
+            return l.to ? (
+              <Link key={l.label} to={l.to} className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-muted/40 text-left">
+                {content}
+              </Link>
+            ) : (
+              <button key={l.label} className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-muted/40 text-left">
+                {content}
               </button>
             );
           })}

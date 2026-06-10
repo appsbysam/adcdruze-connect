@@ -13,14 +13,21 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedMoreRouteImport } from './routes/_authenticated/more'
+import { Route as AuthenticatedImpactRouteImport } from './routes/_authenticated/impact'
 import { Route as AuthenticatedGroupsRouteImport } from './routes/_authenticated/groups'
 import { Route as AuthenticatedEventsRouteImport } from './routes/_authenticated/events'
 import { Route as AuthenticatedDirectoryRouteImport } from './routes/_authenticated/directory'
 import { Route as AuthenticatedBusinessesRouteImport } from './routes/_authenticated/businesses'
+import { Route as AuthenticatedImpactIndexRouteImport } from './routes/_authenticated/impact.index'
+import { Route as AuthenticatedImpactVolunteerRouteImport } from './routes/_authenticated/impact.volunteer'
+import { Route as AuthenticatedImpactHistoryRouteImport } from './routes/_authenticated/impact.history'
+import { Route as AuthenticatedImpactDonateRouteImport } from './routes/_authenticated/impact.donate'
+import { Route as AuthenticatedImpactActivityRouteImport } from './routes/_authenticated/impact.activity'
 import { Route as AuthenticatedGroupsGroupIdRouteImport } from './routes/_authenticated/groups.$groupId'
 import { Route as AuthenticatedEventsEventIdRouteImport } from './routes/_authenticated/events.$eventId'
 import { Route as AuthenticatedDirectoryMemberIdRouteImport } from './routes/_authenticated/directory.$memberId'
 import { Route as AuthenticatedBusinessesBusinessIdRouteImport } from './routes/_authenticated/businesses.$businessId'
+import { Route as AuthenticatedImpactOpportunityOpportunityIdRouteImport } from './routes/_authenticated/impact.opportunity.$opportunityId'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -39,6 +46,11 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
 const AuthenticatedMoreRoute = AuthenticatedMoreRouteImport.update({
   id: '/more',
   path: '/more',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedImpactRoute = AuthenticatedImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedGroupsRoute = AuthenticatedGroupsRouteImport.update({
@@ -61,6 +73,36 @@ const AuthenticatedBusinessesRoute = AuthenticatedBusinessesRouteImport.update({
   path: '/businesses',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedImpactIndexRoute =
+  AuthenticatedImpactIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedImpactRoute,
+  } as any)
+const AuthenticatedImpactVolunteerRoute =
+  AuthenticatedImpactVolunteerRouteImport.update({
+    id: '/volunteer',
+    path: '/volunteer',
+    getParentRoute: () => AuthenticatedImpactRoute,
+  } as any)
+const AuthenticatedImpactHistoryRoute =
+  AuthenticatedImpactHistoryRouteImport.update({
+    id: '/history',
+    path: '/history',
+    getParentRoute: () => AuthenticatedImpactRoute,
+  } as any)
+const AuthenticatedImpactDonateRoute =
+  AuthenticatedImpactDonateRouteImport.update({
+    id: '/donate',
+    path: '/donate',
+    getParentRoute: () => AuthenticatedImpactRoute,
+  } as any)
+const AuthenticatedImpactActivityRoute =
+  AuthenticatedImpactActivityRouteImport.update({
+    id: '/activity',
+    path: '/activity',
+    getParentRoute: () => AuthenticatedImpactRoute,
+  } as any)
 const AuthenticatedGroupsGroupIdRoute =
   AuthenticatedGroupsGroupIdRouteImport.update({
     id: '/$groupId',
@@ -85,6 +127,12 @@ const AuthenticatedBusinessesBusinessIdRoute =
     path: '/$businessId',
     getParentRoute: () => AuthenticatedBusinessesRoute,
   } as any)
+const AuthenticatedImpactOpportunityOpportunityIdRoute =
+  AuthenticatedImpactOpportunityOpportunityIdRouteImport.update({
+    id: '/opportunity/$opportunityId',
+    path: '/opportunity/$opportunityId',
+    getParentRoute: () => AuthenticatedImpactRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -93,11 +141,18 @@ export interface FileRoutesByFullPath {
   '/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/events': typeof AuthenticatedEventsRouteWithChildren
   '/groups': typeof AuthenticatedGroupsRouteWithChildren
+  '/impact': typeof AuthenticatedImpactRouteWithChildren
   '/more': typeof AuthenticatedMoreRoute
   '/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRoute
   '/groups/$groupId': typeof AuthenticatedGroupsGroupIdRoute
+  '/impact/activity': typeof AuthenticatedImpactActivityRoute
+  '/impact/donate': typeof AuthenticatedImpactDonateRoute
+  '/impact/history': typeof AuthenticatedImpactHistoryRoute
+  '/impact/volunteer': typeof AuthenticatedImpactVolunteerRoute
+  '/impact/': typeof AuthenticatedImpactIndexRoute
+  '/impact/opportunity/$opportunityId': typeof AuthenticatedImpactOpportunityOpportunityIdRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
@@ -111,6 +166,12 @@ export interface FileRoutesByTo {
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRoute
   '/groups/$groupId': typeof AuthenticatedGroupsGroupIdRoute
+  '/impact/activity': typeof AuthenticatedImpactActivityRoute
+  '/impact/donate': typeof AuthenticatedImpactDonateRoute
+  '/impact/history': typeof AuthenticatedImpactHistoryRoute
+  '/impact/volunteer': typeof AuthenticatedImpactVolunteerRoute
+  '/impact': typeof AuthenticatedImpactIndexRoute
+  '/impact/opportunity/$opportunityId': typeof AuthenticatedImpactOpportunityOpportunityIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -120,12 +181,19 @@ export interface FileRoutesById {
   '/_authenticated/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/_authenticated/events': typeof AuthenticatedEventsRouteWithChildren
   '/_authenticated/groups': typeof AuthenticatedGroupsRouteWithChildren
+  '/_authenticated/impact': typeof AuthenticatedImpactRouteWithChildren
   '/_authenticated/more': typeof AuthenticatedMoreRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/_authenticated/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/_authenticated/events/$eventId': typeof AuthenticatedEventsEventIdRoute
   '/_authenticated/groups/$groupId': typeof AuthenticatedGroupsGroupIdRoute
+  '/_authenticated/impact/activity': typeof AuthenticatedImpactActivityRoute
+  '/_authenticated/impact/donate': typeof AuthenticatedImpactDonateRoute
+  '/_authenticated/impact/history': typeof AuthenticatedImpactHistoryRoute
+  '/_authenticated/impact/volunteer': typeof AuthenticatedImpactVolunteerRoute
+  '/_authenticated/impact/': typeof AuthenticatedImpactIndexRoute
+  '/_authenticated/impact/opportunity/$opportunityId': typeof AuthenticatedImpactOpportunityOpportunityIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -136,11 +204,18 @@ export interface FileRouteTypes {
     | '/directory'
     | '/events'
     | '/groups'
+    | '/impact'
     | '/more'
     | '/businesses/$businessId'
     | '/directory/$memberId'
     | '/events/$eventId'
     | '/groups/$groupId'
+    | '/impact/activity'
+    | '/impact/donate'
+    | '/impact/history'
+    | '/impact/volunteer'
+    | '/impact/'
+    | '/impact/opportunity/$opportunityId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
@@ -154,6 +229,12 @@ export interface FileRouteTypes {
     | '/directory/$memberId'
     | '/events/$eventId'
     | '/groups/$groupId'
+    | '/impact/activity'
+    | '/impact/donate'
+    | '/impact/history'
+    | '/impact/volunteer'
+    | '/impact'
+    | '/impact/opportunity/$opportunityId'
   id:
     | '__root__'
     | '/_authenticated'
@@ -162,12 +243,19 @@ export interface FileRouteTypes {
     | '/_authenticated/directory'
     | '/_authenticated/events'
     | '/_authenticated/groups'
+    | '/_authenticated/impact'
     | '/_authenticated/more'
     | '/_authenticated/'
     | '/_authenticated/businesses/$businessId'
     | '/_authenticated/directory/$memberId'
     | '/_authenticated/events/$eventId'
     | '/_authenticated/groups/$groupId'
+    | '/_authenticated/impact/activity'
+    | '/_authenticated/impact/donate'
+    | '/_authenticated/impact/history'
+    | '/_authenticated/impact/volunteer'
+    | '/_authenticated/impact/'
+    | '/_authenticated/impact/opportunity/$opportunityId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -205,6 +293,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMoreRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/impact': {
+      id: '/_authenticated/impact'
+      path: '/impact'
+      fullPath: '/impact'
+      preLoaderRoute: typeof AuthenticatedImpactRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/groups': {
       id: '/_authenticated/groups'
       path: '/groups'
@@ -233,6 +328,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBusinessesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/impact/': {
+      id: '/_authenticated/impact/'
+      path: '/'
+      fullPath: '/impact/'
+      preLoaderRoute: typeof AuthenticatedImpactIndexRouteImport
+      parentRoute: typeof AuthenticatedImpactRoute
+    }
+    '/_authenticated/impact/volunteer': {
+      id: '/_authenticated/impact/volunteer'
+      path: '/volunteer'
+      fullPath: '/impact/volunteer'
+      preLoaderRoute: typeof AuthenticatedImpactVolunteerRouteImport
+      parentRoute: typeof AuthenticatedImpactRoute
+    }
+    '/_authenticated/impact/history': {
+      id: '/_authenticated/impact/history'
+      path: '/history'
+      fullPath: '/impact/history'
+      preLoaderRoute: typeof AuthenticatedImpactHistoryRouteImport
+      parentRoute: typeof AuthenticatedImpactRoute
+    }
+    '/_authenticated/impact/donate': {
+      id: '/_authenticated/impact/donate'
+      path: '/donate'
+      fullPath: '/impact/donate'
+      preLoaderRoute: typeof AuthenticatedImpactDonateRouteImport
+      parentRoute: typeof AuthenticatedImpactRoute
+    }
+    '/_authenticated/impact/activity': {
+      id: '/_authenticated/impact/activity'
+      path: '/activity'
+      fullPath: '/impact/activity'
+      preLoaderRoute: typeof AuthenticatedImpactActivityRouteImport
+      parentRoute: typeof AuthenticatedImpactRoute
+    }
     '/_authenticated/groups/$groupId': {
       id: '/_authenticated/groups/$groupId'
       path: '/$groupId'
@@ -260,6 +390,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/businesses/$businessId'
       preLoaderRoute: typeof AuthenticatedBusinessesBusinessIdRouteImport
       parentRoute: typeof AuthenticatedBusinessesRoute
+    }
+    '/_authenticated/impact/opportunity/$opportunityId': {
+      id: '/_authenticated/impact/opportunity/$opportunityId'
+      path: '/opportunity/$opportunityId'
+      fullPath: '/impact/opportunity/$opportunityId'
+      preLoaderRoute: typeof AuthenticatedImpactOpportunityOpportunityIdRouteImport
+      parentRoute: typeof AuthenticatedImpactRoute
     }
   }
 }
@@ -315,11 +452,34 @@ const AuthenticatedGroupsRouteChildren: AuthenticatedGroupsRouteChildren = {
 const AuthenticatedGroupsRouteWithChildren =
   AuthenticatedGroupsRoute._addFileChildren(AuthenticatedGroupsRouteChildren)
 
+interface AuthenticatedImpactRouteChildren {
+  AuthenticatedImpactActivityRoute: typeof AuthenticatedImpactActivityRoute
+  AuthenticatedImpactDonateRoute: typeof AuthenticatedImpactDonateRoute
+  AuthenticatedImpactHistoryRoute: typeof AuthenticatedImpactHistoryRoute
+  AuthenticatedImpactVolunteerRoute: typeof AuthenticatedImpactVolunteerRoute
+  AuthenticatedImpactIndexRoute: typeof AuthenticatedImpactIndexRoute
+  AuthenticatedImpactOpportunityOpportunityIdRoute: typeof AuthenticatedImpactOpportunityOpportunityIdRoute
+}
+
+const AuthenticatedImpactRouteChildren: AuthenticatedImpactRouteChildren = {
+  AuthenticatedImpactActivityRoute: AuthenticatedImpactActivityRoute,
+  AuthenticatedImpactDonateRoute: AuthenticatedImpactDonateRoute,
+  AuthenticatedImpactHistoryRoute: AuthenticatedImpactHistoryRoute,
+  AuthenticatedImpactVolunteerRoute: AuthenticatedImpactVolunteerRoute,
+  AuthenticatedImpactIndexRoute: AuthenticatedImpactIndexRoute,
+  AuthenticatedImpactOpportunityOpportunityIdRoute:
+    AuthenticatedImpactOpportunityOpportunityIdRoute,
+}
+
+const AuthenticatedImpactRouteWithChildren =
+  AuthenticatedImpactRoute._addFileChildren(AuthenticatedImpactRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedBusinessesRoute: typeof AuthenticatedBusinessesRouteWithChildren
   AuthenticatedDirectoryRoute: typeof AuthenticatedDirectoryRouteWithChildren
   AuthenticatedEventsRoute: typeof AuthenticatedEventsRouteWithChildren
   AuthenticatedGroupsRoute: typeof AuthenticatedGroupsRouteWithChildren
+  AuthenticatedImpactRoute: typeof AuthenticatedImpactRouteWithChildren
   AuthenticatedMoreRoute: typeof AuthenticatedMoreRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
@@ -329,6 +489,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDirectoryRoute: AuthenticatedDirectoryRouteWithChildren,
   AuthenticatedEventsRoute: AuthenticatedEventsRouteWithChildren,
   AuthenticatedGroupsRoute: AuthenticatedGroupsRouteWithChildren,
+  AuthenticatedImpactRoute: AuthenticatedImpactRouteWithChildren,
   AuthenticatedMoreRoute: AuthenticatedMoreRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
