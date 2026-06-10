@@ -171,34 +171,43 @@ export type Database = {
       }
       members: {
         Row: {
+          bio: string | null
+          committee: string | null
           created_at: string
           email: string
           first_name: string
           id: string
           last_name: string
           mobile: string | null
+          occupation: string | null
           profile_photo: string | null
           suburb: string | null
           user_id: string | null
         }
         Insert: {
+          bio?: string | null
+          committee?: string | null
           created_at?: string
           email: string
           first_name: string
           id?: string
           last_name: string
           mobile?: string | null
+          occupation?: string | null
           profile_photo?: string | null
           suburb?: string | null
           user_id?: string | null
         }
         Update: {
+          bio?: string | null
+          committee?: string | null
           created_at?: string
           email?: string
           first_name?: string
           id?: string
           last_name?: string
           mobile?: string | null
+          occupation?: string | null
           profile_photo?: string | null
           suburb?: string | null
           user_id?: string | null

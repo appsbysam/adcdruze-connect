@@ -17,6 +17,7 @@ import { Route as AuthenticatedGroupsRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedEventsRouteImport } from './routes/_authenticated/events'
 import { Route as AuthenticatedDirectoryRouteImport } from './routes/_authenticated/directory'
 import { Route as AuthenticatedEventsEventIdRouteImport } from './routes/_authenticated/events.$eventId'
+import { Route as AuthenticatedDirectoryMemberIdRouteImport } from './routes/_authenticated/directory.$memberId'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -58,34 +59,43 @@ const AuthenticatedEventsEventIdRoute =
     path: '/$eventId',
     getParentRoute: () => AuthenticatedEventsRoute,
   } as any)
+const AuthenticatedDirectoryMemberIdRoute =
+  AuthenticatedDirectoryMemberIdRouteImport.update({
+    id: '/$memberId',
+    path: '/$memberId',
+    getParentRoute: () => AuthenticatedDirectoryRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/auth': typeof AuthRoute
-  '/directory': typeof AuthenticatedDirectoryRoute
+  '/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/events': typeof AuthenticatedEventsRouteWithChildren
   '/groups': typeof AuthenticatedGroupsRoute
   '/more': typeof AuthenticatedMoreRoute
+  '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
-  '/directory': typeof AuthenticatedDirectoryRoute
+  '/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/events': typeof AuthenticatedEventsRouteWithChildren
   '/groups': typeof AuthenticatedGroupsRoute
   '/more': typeof AuthenticatedMoreRoute
   '/': typeof AuthenticatedIndexRoute
+  '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/_authenticated/directory': typeof AuthenticatedDirectoryRoute
+  '/_authenticated/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/_authenticated/events': typeof AuthenticatedEventsRouteWithChildren
   '/_authenticated/groups': typeof AuthenticatedGroupsRoute
   '/_authenticated/more': typeof AuthenticatedMoreRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/_authenticated/events/$eventId': typeof AuthenticatedEventsEventIdRoute
 }
 export interface FileRouteTypes {
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/groups'
     | '/more'
+    | '/directory/$memberId'
     | '/events/$eventId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/groups'
     | '/more'
     | '/'
+    | '/directory/$memberId'
     | '/events/$eventId'
   id:
     | '__root__'
@@ -116,6 +128,7 @@ export interface FileRouteTypes {
     | '/_authenticated/groups'
     | '/_authenticated/more'
     | '/_authenticated/'
+    | '/_authenticated/directory/$memberId'
     | '/_authenticated/events/$eventId'
   fileRoutesById: FileRoutesById
 }
@@ -182,8 +195,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEventsEventIdRouteImport
       parentRoute: typeof AuthenticatedEventsRoute
     }
+    '/_authenticated/directory/$memberId': {
+      id: '/_authenticated/directory/$memberId'
+      path: '/$memberId'
+      fullPath: '/directory/$memberId'
+      preLoaderRoute: typeof AuthenticatedDirectoryMemberIdRouteImport
+      parentRoute: typeof AuthenticatedDirectoryRoute
+    }
   }
 }
+
+interface AuthenticatedDirectoryRouteChildren {
+  AuthenticatedDirectoryMemberIdRoute: typeof AuthenticatedDirectoryMemberIdRoute
+}
+
+const AuthenticatedDirectoryRouteChildren: AuthenticatedDirectoryRouteChildren =
+  {
+    AuthenticatedDirectoryMemberIdRoute: AuthenticatedDirectoryMemberIdRoute,
+  }
+
+const AuthenticatedDirectoryRouteWithChildren =
+  AuthenticatedDirectoryRoute._addFileChildren(
+    AuthenticatedDirectoryRouteChildren,
+  )
 
 interface AuthenticatedEventsRouteChildren {
   AuthenticatedEventsEventIdRoute: typeof AuthenticatedEventsEventIdRoute
@@ -197,7 +231,7 @@ const AuthenticatedEventsRouteWithChildren =
   AuthenticatedEventsRoute._addFileChildren(AuthenticatedEventsRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedDirectoryRoute: typeof AuthenticatedDirectoryRoute
+  AuthenticatedDirectoryRoute: typeof AuthenticatedDirectoryRouteWithChildren
   AuthenticatedEventsRoute: typeof AuthenticatedEventsRouteWithChildren
   AuthenticatedGroupsRoute: typeof AuthenticatedGroupsRoute
   AuthenticatedMoreRoute: typeof AuthenticatedMoreRoute
@@ -205,7 +239,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedDirectoryRoute: AuthenticatedDirectoryRoute,
+  AuthenticatedDirectoryRoute: AuthenticatedDirectoryRouteWithChildren,
   AuthenticatedEventsRoute: AuthenticatedEventsRouteWithChildren,
   AuthenticatedGroupsRoute: AuthenticatedGroupsRoute,
   AuthenticatedMoreRoute: AuthenticatedMoreRoute,
