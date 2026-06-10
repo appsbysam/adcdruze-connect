@@ -58,7 +58,7 @@ function AdminLayout() {
             return (
               <Link
                 key={n.to}
-                to={n.to}
+                to={n.to as any}
                 className={`shrink-0 inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border ${
                   active ? "bg-primary text-primary-foreground border-primary" : "bg-card hover:bg-muted"
                 }`}

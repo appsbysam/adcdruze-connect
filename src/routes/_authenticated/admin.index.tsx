@@ -62,7 +62,7 @@ function AdminHome() {
           return (
             <Link
               key={c.to}
-              to={c.to}
+              to={c.to as any}
               className="rounded-2xl border bg-card p-4 hover:shadow-card transition-shadow"
             >
               <div className="flex items-center justify-between mb-3">
