@@ -14,7 +14,156 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      announcements: {
+        Row: {
+          content: string | null
+          created_at: string
+          id: string
+          title: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          title: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      businesses: {
+        Row: {
+          business_name: string
+          category: string | null
+          created_at: string
+          description: string | null
+          email: string | null
+          id: string
+          logo: string | null
+          phone: string | null
+          website: string | null
+        }
+        Insert: {
+          business_name: string
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          logo?: string | null
+          phone?: string | null
+          website?: string | null
+        }
+        Update: {
+          business_name?: string
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          logo?: string | null
+          phone?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          capacity: number | null
+          created_at: string
+          date: string
+          description: string | null
+          id: string
+          image: string | null
+          location: string | null
+          title: string
+        }
+        Insert: {
+          capacity?: number | null
+          created_at?: string
+          date: string
+          description?: string | null
+          id?: string
+          image?: string | null
+          location?: string | null
+          title: string
+        }
+        Update: {
+          capacity?: number | null
+          created_at?: string
+          date?: string
+          description?: string | null
+          id?: string
+          image?: string | null
+          location?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      groups: {
+        Row: {
+          created_at: string
+          description: string | null
+          icon: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      members: {
+        Row: {
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          mobile: string | null
+          profile_photo: string | null
+          suburb: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          last_name: string
+          mobile?: string | null
+          profile_photo?: string | null
+          suburb?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          mobile?: string | null
+          profile_photo?: string | null
+          suburb?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
