@@ -80,6 +80,15 @@ function MorePage() {
       <section>
         <h2 className="text-base font-semibold mb-3">Community</h2>
         <div className="bg-card border rounded-2xl shadow-soft divide-y divide-border overflow-hidden">
+          {canAccessAdmin && (
+            <Link to="/admin" className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-muted/40 text-left">
+              <span className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                <ShieldCheck className="size-4 text-primary" />
+              </span>
+              <span className="text-sm font-medium flex-1">{isAdmin ? "Admin console" : "Committee tools"}</span>
+              <ArrowRight className="size-4 text-muted-foreground" />
+            </Link>
+          )}
           {links.map((l) => {
             const Icon = l.icon;
             const content = (
