@@ -14,7 +14,7 @@ function MorePage() {
   const { data: businesses = [] } = useQuery({
     queryKey: ["businesses"],
     queryFn: async () => {
-      const { data } = await supabase.from("businesses").select("*").order("business_name");
+      const { data } = await supabase.from("businesses").select("*").order("business_name").limit(3);
       return data ?? [];
     },
   });
@@ -41,10 +41,20 @@ function MorePage() {
       </header>
 
       <section>
-        <h2 className="text-base font-semibold mb-3">Local businesses</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-base font-semibold">Local businesses</h2>
+          <Link to="/businesses" className="text-xs font-medium text-[color:var(--brand-home)] inline-flex items-center gap-1">
+            View all <ArrowRight className="size-3" />
+          </Link>
+        </div>
         <div className="space-y-2.5">
           {businesses.map((b) => (
-            <article key={b.id} className="bg-card border rounded-2xl p-4 shadow-soft">
+            <Link
+              key={b.id}
+              to="/businesses/$businessId"
+              params={{ businessId: b.id }}
+              className="block bg-card border rounded-2xl p-4 shadow-soft hover:shadow-card transition-shadow"
+            >
               <div className="flex gap-3 items-start">
                 <span className="size-11 rounded-xl bg-[color:var(--brand-home-soft)] flex items-center justify-center shrink-0">
                   <Briefcase className="size-5 text-[color:var(--brand-home)]" />
@@ -54,13 +64,13 @@ function MorePage() {
                   <p className="text-xs text-[color:var(--brand-home)] font-medium">{b.category}</p>
                   <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{b.description}</p>
                   <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 text-xs text-muted-foreground">
-                    {b.phone && <a href={`tel:${b.phone}`} className="inline-flex items-center gap-1"><Phone className="size-3" />{b.phone}</a>}
-                    {b.email && <a href={`mailto:${b.email}`} className="inline-flex items-center gap-1"><Mail className="size-3" />{b.email}</a>}
-                    {b.website && <a href={b.website} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1"><Globe className="size-3" />Website</a>}
+                    {b.phone && <span className="inline-flex items-center gap-1"><Phone className="size-3" />{b.phone}</span>}
+                    {b.email && <span className="inline-flex items-center gap-1"><Mail className="size-3" />{b.email}</span>}
+                    {b.website && <span className="inline-flex items-center gap-1"><Globe className="size-3" />Website</span>}
                   </div>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
