@@ -1,0 +1,5 @@
+
+ALTER TABLE public.members
+  ADD COLUMN IF NOT EXISTS occupation TEXT,
+  ADD COLUMN IF NOT EXISTS committee TEXT,
+  ADD COLUMN IF NOT EXISTS bio TEXT;
