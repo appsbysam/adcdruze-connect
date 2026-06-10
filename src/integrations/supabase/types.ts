@@ -37,33 +37,39 @@ export type Database = {
       }
       businesses: {
         Row: {
+          address: string | null
           business_name: string
           category: string | null
           created_at: string
           description: string | null
           email: string | null
+          featured: boolean | null
           id: string
           logo: string | null
           phone: string | null
           website: string | null
         }
         Insert: {
+          address?: string | null
           business_name: string
           category?: string | null
           created_at?: string
           description?: string | null
           email?: string | null
+          featured?: boolean | null
           id?: string
           logo?: string | null
           phone?: string | null
           website?: string | null
         }
         Update: {
+          address?: string | null
           business_name?: string
           category?: string | null
           created_at?: string
           description?: string | null
           email?: string | null
+          featured?: boolean | null
           id?: string
           logo?: string | null
           phone?: string | null
