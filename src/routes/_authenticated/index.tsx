@@ -65,6 +65,16 @@ function HomePage() {
       return data ?? [];
     },
   });
+  const { data: unreadCount = 0 } = useQuery({
+    queryKey: ["notifications", "unread-count"],
+    queryFn: async () => {
+      const { count } = await supabase
+        .from("notifications")
+        .select("*", { count: "exact", head: true })
+        .eq("read", false);
+      return count ?? 0;
+    },
+  });
 
   const featured = events[0];
   const upcoming = events.slice(1, 4);
@@ -87,9 +97,13 @@ function HomePage() {
           <h1 className="text-2xl font-bold tracking-tight leading-tight">Australian Druze<br />Community</h1>
           <p className="text-sm text-muted-foreground mt-1">Stay connected. Stay informed. Stay involved.</p>
         </div>
-        <Link to="/notifications" className="relative size-10 rounded-full bg-white border border-border shadow-soft flex items-center justify-center">
+        <Link to="/notifications" className="relative size-10 rounded-full bg-white border border-border shadow-soft flex items-center justify-center" aria-label="Notifications">
           <Bell className="size-5 text-foreground" />
-          <span className="absolute top-2 right-2 size-2 rounded-full bg-[color:var(--brand-events)]" />
+          {unreadCount > 0 && (
+            <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-[color:var(--brand-events)] text-white text-[10px] font-bold flex items-center justify-center">
+              {unreadCount > 9 ? "9+" : unreadCount}
+            </span>
+          )}
         </Link>
       </header>
 
