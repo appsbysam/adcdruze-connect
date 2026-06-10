@@ -16,9 +16,11 @@ import { Route as AuthenticatedMoreRouteImport } from './routes/_authenticated/m
 import { Route as AuthenticatedGroupsRouteImport } from './routes/_authenticated/groups'
 import { Route as AuthenticatedEventsRouteImport } from './routes/_authenticated/events'
 import { Route as AuthenticatedDirectoryRouteImport } from './routes/_authenticated/directory'
+import { Route as AuthenticatedBusinessesRouteImport } from './routes/_authenticated/businesses'
 import { Route as AuthenticatedGroupsGroupIdRouteImport } from './routes/_authenticated/groups.$groupId'
 import { Route as AuthenticatedEventsEventIdRouteImport } from './routes/_authenticated/events.$eventId'
 import { Route as AuthenticatedDirectoryMemberIdRouteImport } from './routes/_authenticated/directory.$memberId'
+import { Route as AuthenticatedBusinessesBusinessIdRouteImport } from './routes/_authenticated/businesses.$businessId'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -54,6 +56,11 @@ const AuthenticatedDirectoryRoute = AuthenticatedDirectoryRouteImport.update({
   path: '/directory',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedBusinessesRoute = AuthenticatedBusinessesRouteImport.update({
+  id: '/businesses',
+  path: '/businesses',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedGroupsGroupIdRoute =
   AuthenticatedGroupsGroupIdRouteImport.update({
     id: '/$groupId',
@@ -72,25 +79,35 @@ const AuthenticatedDirectoryMemberIdRoute =
     path: '/$memberId',
     getParentRoute: () => AuthenticatedDirectoryRoute,
   } as any)
+const AuthenticatedBusinessesBusinessIdRoute =
+  AuthenticatedBusinessesBusinessIdRouteImport.update({
+    id: '/$businessId',
+    path: '/$businessId',
+    getParentRoute: () => AuthenticatedBusinessesRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/auth': typeof AuthRoute
+  '/businesses': typeof AuthenticatedBusinessesRouteWithChildren
   '/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/events': typeof AuthenticatedEventsRouteWithChildren
   '/groups': typeof AuthenticatedGroupsRouteWithChildren
   '/more': typeof AuthenticatedMoreRoute
+  '/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRoute
   '/groups/$groupId': typeof AuthenticatedGroupsGroupIdRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
+  '/businesses': typeof AuthenticatedBusinessesRouteWithChildren
   '/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/events': typeof AuthenticatedEventsRouteWithChildren
   '/groups': typeof AuthenticatedGroupsRouteWithChildren
   '/more': typeof AuthenticatedMoreRoute
   '/': typeof AuthenticatedIndexRoute
+  '/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRoute
   '/groups/$groupId': typeof AuthenticatedGroupsGroupIdRoute
@@ -99,11 +116,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/businesses': typeof AuthenticatedBusinessesRouteWithChildren
   '/_authenticated/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/_authenticated/events': typeof AuthenticatedEventsRouteWithChildren
   '/_authenticated/groups': typeof AuthenticatedGroupsRouteWithChildren
   '/_authenticated/more': typeof AuthenticatedMoreRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/_authenticated/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/_authenticated/events/$eventId': typeof AuthenticatedEventsEventIdRoute
   '/_authenticated/groups/$groupId': typeof AuthenticatedGroupsGroupIdRoute
@@ -113,21 +132,25 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/businesses'
     | '/directory'
     | '/events'
     | '/groups'
     | '/more'
+    | '/businesses/$businessId'
     | '/directory/$memberId'
     | '/events/$eventId'
     | '/groups/$groupId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
+    | '/businesses'
     | '/directory'
     | '/events'
     | '/groups'
     | '/more'
     | '/'
+    | '/businesses/$businessId'
     | '/directory/$memberId'
     | '/events/$eventId'
     | '/groups/$groupId'
@@ -135,11 +158,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/businesses'
     | '/_authenticated/directory'
     | '/_authenticated/events'
     | '/_authenticated/groups'
     | '/_authenticated/more'
     | '/_authenticated/'
+    | '/_authenticated/businesses/$businessId'
     | '/_authenticated/directory/$memberId'
     | '/_authenticated/events/$eventId'
     | '/_authenticated/groups/$groupId'
@@ -201,6 +226,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDirectoryRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/businesses': {
+      id: '/_authenticated/businesses'
+      path: '/businesses'
+      fullPath: '/businesses'
+      preLoaderRoute: typeof AuthenticatedBusinessesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/groups/$groupId': {
       id: '/_authenticated/groups/$groupId'
       path: '/$groupId'
@@ -222,8 +254,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDirectoryMemberIdRouteImport
       parentRoute: typeof AuthenticatedDirectoryRoute
     }
+    '/_authenticated/businesses/$businessId': {
+      id: '/_authenticated/businesses/$businessId'
+      path: '/$businessId'
+      fullPath: '/businesses/$businessId'
+      preLoaderRoute: typeof AuthenticatedBusinessesBusinessIdRouteImport
+      parentRoute: typeof AuthenticatedBusinessesRoute
+    }
   }
 }
+
+interface AuthenticatedBusinessesRouteChildren {
+  AuthenticatedBusinessesBusinessIdRoute: typeof AuthenticatedBusinessesBusinessIdRoute
+}
+
+const AuthenticatedBusinessesRouteChildren: AuthenticatedBusinessesRouteChildren =
+  {
+    AuthenticatedBusinessesBusinessIdRoute:
+      AuthenticatedBusinessesBusinessIdRoute,
+  }
+
+const AuthenticatedBusinessesRouteWithChildren =
+  AuthenticatedBusinessesRoute._addFileChildren(
+    AuthenticatedBusinessesRouteChildren,
+  )
 
 interface AuthenticatedDirectoryRouteChildren {
   AuthenticatedDirectoryMemberIdRoute: typeof AuthenticatedDirectoryMemberIdRoute
@@ -262,6 +316,7 @@ const AuthenticatedGroupsRouteWithChildren =
   AuthenticatedGroupsRoute._addFileChildren(AuthenticatedGroupsRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedBusinessesRoute: typeof AuthenticatedBusinessesRouteWithChildren
   AuthenticatedDirectoryRoute: typeof AuthenticatedDirectoryRouteWithChildren
   AuthenticatedEventsRoute: typeof AuthenticatedEventsRouteWithChildren
   AuthenticatedGroupsRoute: typeof AuthenticatedGroupsRouteWithChildren
@@ -270,6 +325,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedBusinessesRoute: AuthenticatedBusinessesRouteWithChildren,
   AuthenticatedDirectoryRoute: AuthenticatedDirectoryRouteWithChildren,
   AuthenticatedEventsRoute: AuthenticatedEventsRouteWithChildren,
   AuthenticatedGroupsRoute: AuthenticatedGroupsRouteWithChildren,

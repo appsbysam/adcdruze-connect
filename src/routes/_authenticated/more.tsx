@@ -1,7 +1,7 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Briefcase, Phone, Mail, Globe, HeartHandshake, Gift, Settings, LogOut, Shield, FileText } from "lucide-react";
+import { Briefcase, Phone, Mail, Globe, HeartHandshake, Gift, Settings, LogOut, Shield, FileText, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/more")({

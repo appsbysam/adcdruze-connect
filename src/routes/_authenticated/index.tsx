@@ -73,7 +73,7 @@ function HomePage() {
     { label: "Events", icon: Calendar, color: "var(--brand-events)", soft: "var(--brand-events-soft)", to: "/events" as const },
     { label: "Directory", icon: Users, color: "var(--brand-directory)", soft: "var(--brand-directory-soft)", to: "/directory" as const },
     { label: "Groups", icon: UsersRound, color: "var(--brand-groups)", soft: "var(--brand-groups-soft)", to: "/groups" as const },
-    { label: "Businesses", icon: Briefcase, color: "#0E8A4A", soft: "var(--brand-home-soft)", to: "/more" as const },
+    { label: "Businesses", icon: Briefcase, color: "#0E8A4A", soft: "var(--brand-home-soft)", to: "/businesses" as const },
     { label: "Volunteer", icon: HeartHandshake, color: "#7C3AED", soft: "#F1ECFE", to: "/more" as const },
     { label: "Donate", icon: Gift, color: "#E53935", soft: "var(--brand-events-soft)", to: "/more" as const },
   ];
