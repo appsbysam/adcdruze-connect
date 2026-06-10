@@ -3,7 +3,7 @@ import { Home, Calendar, Users, UsersRound, MoreHorizontal } from "lucide-react"
 import type { LucideIcon } from "lucide-react";
 
 type Item = {
-  to: "/home" | "/events" | "/directory" | "/groups" | "/more";
+  to: "/" | "/events" | "/directory" | "/groups" | "/more";
   label: string;
   icon: LucideIcon;
   color: string;
@@ -11,7 +11,7 @@ type Item = {
 };
 
 const items: Item[] = [
-  { to: "/home", label: "Home", icon: Home, color: "var(--brand-home)", soft: "var(--brand-home-soft)" },
+  { to: "/", label: "Home", icon: Home, color: "var(--brand-home)", soft: "var(--brand-home-soft)" },
   { to: "/events", label: "Events", icon: Calendar, color: "var(--brand-events)", soft: "var(--brand-events-soft)" },
   { to: "/directory", label: "Directory", icon: Users, color: "var(--brand-directory)", soft: "var(--brand-directory-soft)" },
   { to: "/groups", label: "Groups", icon: UsersRound, color: "var(--brand-groups)", soft: "var(--brand-groups-soft)" },
@@ -25,7 +25,7 @@ export function BottomNav() {
     <nav className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t border-border pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-2xl mx-auto grid grid-cols-5">
         {items.map((it) => {
-          const active = pathname === it.to || (it.to !== "/home" && pathname.startsWith(it.to));
+          const active = it.to === "/" ? pathname === "/" : pathname.startsWith(it.to);
           const Icon = it.icon;
           const isMore = it.to === "/more";
           return (
