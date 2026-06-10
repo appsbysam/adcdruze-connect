@@ -20,6 +20,7 @@ import { Route as AuthenticatedEventsRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedDirectoryRouteImport } from './routes/_authenticated/directory'
 import { Route as AuthenticatedBusinessesRouteImport } from './routes/_authenticated/businesses'
 import { Route as AuthenticatedImpactIndexRouteImport } from './routes/_authenticated/impact.index'
+import { Route as AuthenticatedNotificationsSettingsRouteImport } from './routes/_authenticated/notifications.settings'
 import { Route as AuthenticatedImpactVolunteerRouteImport } from './routes/_authenticated/impact.volunteer'
 import { Route as AuthenticatedImpactHistoryRouteImport } from './routes/_authenticated/impact.history'
 import { Route as AuthenticatedImpactDonateRouteImport } from './routes/_authenticated/impact.donate'
@@ -28,6 +29,7 @@ import { Route as AuthenticatedGroupsGroupIdRouteImport } from './routes/_authen
 import { Route as AuthenticatedEventsEventIdRouteImport } from './routes/_authenticated/events.$eventId'
 import { Route as AuthenticatedDirectoryMemberIdRouteImport } from './routes/_authenticated/directory.$memberId'
 import { Route as AuthenticatedBusinessesBusinessIdRouteImport } from './routes/_authenticated/businesses.$businessId'
+import { Route as AuthenticatedAnnouncementsAnnouncementIdRouteImport } from './routes/_authenticated/announcements.$announcementId'
 import { Route as AuthenticatedImpactOpportunityOpportunityIdRouteImport } from './routes/_authenticated/impact.opportunity.$opportunityId'
 
 const AuthRoute = AuthRouteImport.update({
@@ -86,6 +88,12 @@ const AuthenticatedImpactIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedImpactRoute,
   } as any)
+const AuthenticatedNotificationsSettingsRoute =
+  AuthenticatedNotificationsSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedNotificationsRoute,
+  } as any)
 const AuthenticatedImpactVolunteerRoute =
   AuthenticatedImpactVolunteerRouteImport.update({
     id: '/volunteer',
@@ -134,6 +142,12 @@ const AuthenticatedBusinessesBusinessIdRoute =
     path: '/$businessId',
     getParentRoute: () => AuthenticatedBusinessesRoute,
   } as any)
+const AuthenticatedAnnouncementsAnnouncementIdRoute =
+  AuthenticatedAnnouncementsAnnouncementIdRouteImport.update({
+    id: '/announcements/$announcementId',
+    path: '/announcements/$announcementId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedImpactOpportunityOpportunityIdRoute =
   AuthenticatedImpactOpportunityOpportunityIdRouteImport.update({
     id: '/opportunity/$opportunityId',
@@ -150,7 +164,8 @@ export interface FileRoutesByFullPath {
   '/groups': typeof AuthenticatedGroupsRouteWithChildren
   '/impact': typeof AuthenticatedImpactRouteWithChildren
   '/more': typeof AuthenticatedMoreRoute
-  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/notifications': typeof AuthenticatedNotificationsRouteWithChildren
+  '/announcements/$announcementId': typeof AuthenticatedAnnouncementsAnnouncementIdRoute
   '/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRoute
@@ -159,6 +174,7 @@ export interface FileRoutesByFullPath {
   '/impact/donate': typeof AuthenticatedImpactDonateRoute
   '/impact/history': typeof AuthenticatedImpactHistoryRoute
   '/impact/volunteer': typeof AuthenticatedImpactVolunteerRoute
+  '/notifications/settings': typeof AuthenticatedNotificationsSettingsRoute
   '/impact/': typeof AuthenticatedImpactIndexRoute
   '/impact/opportunity/$opportunityId': typeof AuthenticatedImpactOpportunityOpportunityIdRoute
 }
@@ -169,8 +185,9 @@ export interface FileRoutesByTo {
   '/events': typeof AuthenticatedEventsRouteWithChildren
   '/groups': typeof AuthenticatedGroupsRouteWithChildren
   '/more': typeof AuthenticatedMoreRoute
-  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/notifications': typeof AuthenticatedNotificationsRouteWithChildren
   '/': typeof AuthenticatedIndexRoute
+  '/announcements/$announcementId': typeof AuthenticatedAnnouncementsAnnouncementIdRoute
   '/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRoute
@@ -179,6 +196,7 @@ export interface FileRoutesByTo {
   '/impact/donate': typeof AuthenticatedImpactDonateRoute
   '/impact/history': typeof AuthenticatedImpactHistoryRoute
   '/impact/volunteer': typeof AuthenticatedImpactVolunteerRoute
+  '/notifications/settings': typeof AuthenticatedNotificationsSettingsRoute
   '/impact': typeof AuthenticatedImpactIndexRoute
   '/impact/opportunity/$opportunityId': typeof AuthenticatedImpactOpportunityOpportunityIdRoute
 }
@@ -192,8 +210,9 @@ export interface FileRoutesById {
   '/_authenticated/groups': typeof AuthenticatedGroupsRouteWithChildren
   '/_authenticated/impact': typeof AuthenticatedImpactRouteWithChildren
   '/_authenticated/more': typeof AuthenticatedMoreRoute
-  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/announcements/$announcementId': typeof AuthenticatedAnnouncementsAnnouncementIdRoute
   '/_authenticated/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/_authenticated/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/_authenticated/events/$eventId': typeof AuthenticatedEventsEventIdRoute
@@ -202,6 +221,7 @@ export interface FileRoutesById {
   '/_authenticated/impact/donate': typeof AuthenticatedImpactDonateRoute
   '/_authenticated/impact/history': typeof AuthenticatedImpactHistoryRoute
   '/_authenticated/impact/volunteer': typeof AuthenticatedImpactVolunteerRoute
+  '/_authenticated/notifications/settings': typeof AuthenticatedNotificationsSettingsRoute
   '/_authenticated/impact/': typeof AuthenticatedImpactIndexRoute
   '/_authenticated/impact/opportunity/$opportunityId': typeof AuthenticatedImpactOpportunityOpportunityIdRoute
 }
@@ -217,6 +237,7 @@ export interface FileRouteTypes {
     | '/impact'
     | '/more'
     | '/notifications'
+    | '/announcements/$announcementId'
     | '/businesses/$businessId'
     | '/directory/$memberId'
     | '/events/$eventId'
@@ -225,6 +246,7 @@ export interface FileRouteTypes {
     | '/impact/donate'
     | '/impact/history'
     | '/impact/volunteer'
+    | '/notifications/settings'
     | '/impact/'
     | '/impact/opportunity/$opportunityId'
   fileRoutesByTo: FileRoutesByTo
@@ -237,6 +259,7 @@ export interface FileRouteTypes {
     | '/more'
     | '/notifications'
     | '/'
+    | '/announcements/$announcementId'
     | '/businesses/$businessId'
     | '/directory/$memberId'
     | '/events/$eventId'
@@ -245,6 +268,7 @@ export interface FileRouteTypes {
     | '/impact/donate'
     | '/impact/history'
     | '/impact/volunteer'
+    | '/notifications/settings'
     | '/impact'
     | '/impact/opportunity/$opportunityId'
   id:
@@ -259,6 +283,7 @@ export interface FileRouteTypes {
     | '/_authenticated/more'
     | '/_authenticated/notifications'
     | '/_authenticated/'
+    | '/_authenticated/announcements/$announcementId'
     | '/_authenticated/businesses/$businessId'
     | '/_authenticated/directory/$memberId'
     | '/_authenticated/events/$eventId'
@@ -267,6 +292,7 @@ export interface FileRouteTypes {
     | '/_authenticated/impact/donate'
     | '/_authenticated/impact/history'
     | '/_authenticated/impact/volunteer'
+    | '/_authenticated/notifications/settings'
     | '/_authenticated/impact/'
     | '/_authenticated/impact/opportunity/$opportunityId'
   fileRoutesById: FileRoutesById
@@ -355,6 +381,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedImpactIndexRouteImport
       parentRoute: typeof AuthenticatedImpactRoute
     }
+    '/_authenticated/notifications/settings': {
+      id: '/_authenticated/notifications/settings'
+      path: '/settings'
+      fullPath: '/notifications/settings'
+      preLoaderRoute: typeof AuthenticatedNotificationsSettingsRouteImport
+      parentRoute: typeof AuthenticatedNotificationsRoute
+    }
     '/_authenticated/impact/volunteer': {
       id: '/_authenticated/impact/volunteer'
       path: '/volunteer'
@@ -410,6 +443,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/businesses/$businessId'
       preLoaderRoute: typeof AuthenticatedBusinessesBusinessIdRouteImport
       parentRoute: typeof AuthenticatedBusinessesRoute
+    }
+    '/_authenticated/announcements/$announcementId': {
+      id: '/_authenticated/announcements/$announcementId'
+      path: '/announcements/$announcementId'
+      fullPath: '/announcements/$announcementId'
+      preLoaderRoute: typeof AuthenticatedAnnouncementsAnnouncementIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/impact/opportunity/$opportunityId': {
       id: '/_authenticated/impact/opportunity/$opportunityId'
@@ -494,6 +534,21 @@ const AuthenticatedImpactRouteChildren: AuthenticatedImpactRouteChildren = {
 const AuthenticatedImpactRouteWithChildren =
   AuthenticatedImpactRoute._addFileChildren(AuthenticatedImpactRouteChildren)
 
+interface AuthenticatedNotificationsRouteChildren {
+  AuthenticatedNotificationsSettingsRoute: typeof AuthenticatedNotificationsSettingsRoute
+}
+
+const AuthenticatedNotificationsRouteChildren: AuthenticatedNotificationsRouteChildren =
+  {
+    AuthenticatedNotificationsSettingsRoute:
+      AuthenticatedNotificationsSettingsRoute,
+  }
+
+const AuthenticatedNotificationsRouteWithChildren =
+  AuthenticatedNotificationsRoute._addFileChildren(
+    AuthenticatedNotificationsRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedBusinessesRoute: typeof AuthenticatedBusinessesRouteWithChildren
   AuthenticatedDirectoryRoute: typeof AuthenticatedDirectoryRouteWithChildren
@@ -501,8 +556,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedGroupsRoute: typeof AuthenticatedGroupsRouteWithChildren
   AuthenticatedImpactRoute: typeof AuthenticatedImpactRouteWithChildren
   AuthenticatedMoreRoute: typeof AuthenticatedMoreRoute
-  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAnnouncementsAnnouncementIdRoute: typeof AuthenticatedAnnouncementsAnnouncementIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -512,8 +568,10 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGroupsRoute: AuthenticatedGroupsRouteWithChildren,
   AuthenticatedImpactRoute: AuthenticatedImpactRouteWithChildren,
   AuthenticatedMoreRoute: AuthenticatedMoreRoute,
-  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAnnouncementsAnnouncementIdRoute:
+    AuthenticatedAnnouncementsAnnouncementIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
