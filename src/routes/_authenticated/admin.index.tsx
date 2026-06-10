@@ -37,14 +37,15 @@ function AdminHome() {
     },
   });
 
-  const cards = [
+  type Card = { to: string; label: string; icon: typeof Users; count?: number; badge?: string; adminOnly?: boolean };
+  const cards: Card[] = [
     { to: "/admin/members", label: "Members", icon: Users, count: stats?.members, badge: stats?.pendingMembers ? `${stats.pendingMembers} pending` : undefined, adminOnly: true },
     { to: "/admin/events", label: "Events", icon: Calendar, count: stats?.events },
     { to: "/admin/groups", label: "Groups", icon: UsersRound, count: stats?.groups },
     { to: "/admin/businesses", label: "Businesses", icon: Briefcase, count: stats?.businesses, badge: stats?.pendingBusinesses ? `${stats.pendingBusinesses} pending` : undefined, adminOnly: true },
     { to: "/admin/volunteer", label: "Volunteer Opportunities", icon: HeartHandshake, count: stats?.volunteer },
     { to: "/admin/announcements", label: "Announcements", icon: Megaphone, count: stats?.announcements, adminOnly: true },
-  ] as const;
+  ];
 
   return (
     <div className="space-y-5">
