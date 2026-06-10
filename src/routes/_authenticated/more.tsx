@@ -12,6 +12,7 @@ export const Route = createFileRoute("/_authenticated/more")({
 
 function MorePage() {
   const navigate = useNavigate();
+  const { canAccessAdmin, isAdmin } = useUserRoles();
   const { data: businesses = [] } = useQuery({
     queryKey: ["businesses"],
     queryFn: async () => {
