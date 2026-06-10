@@ -19,7 +19,9 @@ import { Route as AuthenticatedGroupsRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedEventsRouteImport } from './routes/_authenticated/events'
 import { Route as AuthenticatedDirectoryRouteImport } from './routes/_authenticated/directory'
 import { Route as AuthenticatedBusinessesRouteImport } from './routes/_authenticated/businesses'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedImpactIndexRouteImport } from './routes/_authenticated/impact.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedNotificationsSettingsRouteImport } from './routes/_authenticated/notifications.settings'
 import { Route as AuthenticatedImpactVolunteerRouteImport } from './routes/_authenticated/impact.volunteer'
 import { Route as AuthenticatedImpactHistoryRouteImport } from './routes/_authenticated/impact.history'
@@ -30,6 +32,12 @@ import { Route as AuthenticatedEventsEventIdRouteImport } from './routes/_authen
 import { Route as AuthenticatedDirectoryMemberIdRouteImport } from './routes/_authenticated/directory.$memberId'
 import { Route as AuthenticatedBusinessesBusinessIdRouteImport } from './routes/_authenticated/businesses.$businessId'
 import { Route as AuthenticatedAnnouncementsAnnouncementIdRouteImport } from './routes/_authenticated/announcements.$announcementId'
+import { Route as AuthenticatedAdminVolunteerRouteImport } from './routes/_authenticated/admin.volunteer'
+import { Route as AuthenticatedAdminMembersRouteImport } from './routes/_authenticated/admin.members'
+import { Route as AuthenticatedAdminGroupsRouteImport } from './routes/_authenticated/admin.groups'
+import { Route as AuthenticatedAdminEventsRouteImport } from './routes/_authenticated/admin.events'
+import { Route as AuthenticatedAdminBusinessesRouteImport } from './routes/_authenticated/admin.businesses'
+import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated/admin.announcements'
 import { Route as AuthenticatedImpactOpportunityOpportunityIdRouteImport } from './routes/_authenticated/impact.opportunity.$opportunityId'
 
 const AuthRoute = AuthRouteImport.update({
@@ -82,12 +90,22 @@ const AuthenticatedBusinessesRoute = AuthenticatedBusinessesRouteImport.update({
   path: '/businesses',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedImpactIndexRoute =
   AuthenticatedImpactIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedImpactRoute,
   } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedNotificationsSettingsRoute =
   AuthenticatedNotificationsSettingsRouteImport.update({
     id: '/settings',
@@ -148,6 +166,42 @@ const AuthenticatedAnnouncementsAnnouncementIdRoute =
     path: '/announcements/$announcementId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminVolunteerRoute =
+  AuthenticatedAdminVolunteerRouteImport.update({
+    id: '/volunteer',
+    path: '/volunteer',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminMembersRoute =
+  AuthenticatedAdminMembersRouteImport.update({
+    id: '/members',
+    path: '/members',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminGroupsRoute =
+  AuthenticatedAdminGroupsRouteImport.update({
+    id: '/groups',
+    path: '/groups',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminEventsRoute =
+  AuthenticatedAdminEventsRouteImport.update({
+    id: '/events',
+    path: '/events',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminBusinessesRoute =
+  AuthenticatedAdminBusinessesRouteImport.update({
+    id: '/businesses',
+    path: '/businesses',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminAnnouncementsRoute =
+  AuthenticatedAdminAnnouncementsRouteImport.update({
+    id: '/announcements',
+    path: '/announcements',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedImpactOpportunityOpportunityIdRoute =
   AuthenticatedImpactOpportunityOpportunityIdRouteImport.update({
     id: '/opportunity/$opportunityId',
@@ -158,6 +212,7 @@ const AuthenticatedImpactOpportunityOpportunityIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/businesses': typeof AuthenticatedBusinessesRouteWithChildren
   '/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/events': typeof AuthenticatedEventsRouteWithChildren
@@ -165,6 +220,12 @@ export interface FileRoutesByFullPath {
   '/impact': typeof AuthenticatedImpactRouteWithChildren
   '/more': typeof AuthenticatedMoreRoute
   '/notifications': typeof AuthenticatedNotificationsRouteWithChildren
+  '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
+  '/admin/businesses': typeof AuthenticatedAdminBusinessesRoute
+  '/admin/events': typeof AuthenticatedAdminEventsRoute
+  '/admin/groups': typeof AuthenticatedAdminGroupsRoute
+  '/admin/members': typeof AuthenticatedAdminMembersRoute
+  '/admin/volunteer': typeof AuthenticatedAdminVolunteerRoute
   '/announcements/$announcementId': typeof AuthenticatedAnnouncementsAnnouncementIdRoute
   '/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
@@ -175,6 +236,7 @@ export interface FileRoutesByFullPath {
   '/impact/history': typeof AuthenticatedImpactHistoryRoute
   '/impact/volunteer': typeof AuthenticatedImpactVolunteerRoute
   '/notifications/settings': typeof AuthenticatedNotificationsSettingsRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/impact/': typeof AuthenticatedImpactIndexRoute
   '/impact/opportunity/$opportunityId': typeof AuthenticatedImpactOpportunityOpportunityIdRoute
 }
@@ -187,6 +249,12 @@ export interface FileRoutesByTo {
   '/more': typeof AuthenticatedMoreRoute
   '/notifications': typeof AuthenticatedNotificationsRouteWithChildren
   '/': typeof AuthenticatedIndexRoute
+  '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
+  '/admin/businesses': typeof AuthenticatedAdminBusinessesRoute
+  '/admin/events': typeof AuthenticatedAdminEventsRoute
+  '/admin/groups': typeof AuthenticatedAdminGroupsRoute
+  '/admin/members': typeof AuthenticatedAdminMembersRoute
+  '/admin/volunteer': typeof AuthenticatedAdminVolunteerRoute
   '/announcements/$announcementId': typeof AuthenticatedAnnouncementsAnnouncementIdRoute
   '/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
@@ -197,6 +265,7 @@ export interface FileRoutesByTo {
   '/impact/history': typeof AuthenticatedImpactHistoryRoute
   '/impact/volunteer': typeof AuthenticatedImpactVolunteerRoute
   '/notifications/settings': typeof AuthenticatedNotificationsSettingsRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/impact': typeof AuthenticatedImpactIndexRoute
   '/impact/opportunity/$opportunityId': typeof AuthenticatedImpactOpportunityOpportunityIdRoute
 }
@@ -204,6 +273,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/businesses': typeof AuthenticatedBusinessesRouteWithChildren
   '/_authenticated/directory': typeof AuthenticatedDirectoryRouteWithChildren
   '/_authenticated/events': typeof AuthenticatedEventsRouteWithChildren
@@ -212,6 +282,12 @@ export interface FileRoutesById {
   '/_authenticated/more': typeof AuthenticatedMoreRoute
   '/_authenticated/notifications': typeof AuthenticatedNotificationsRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
+  '/_authenticated/admin/businesses': typeof AuthenticatedAdminBusinessesRoute
+  '/_authenticated/admin/events': typeof AuthenticatedAdminEventsRoute
+  '/_authenticated/admin/groups': typeof AuthenticatedAdminGroupsRoute
+  '/_authenticated/admin/members': typeof AuthenticatedAdminMembersRoute
+  '/_authenticated/admin/volunteer': typeof AuthenticatedAdminVolunteerRoute
   '/_authenticated/announcements/$announcementId': typeof AuthenticatedAnnouncementsAnnouncementIdRoute
   '/_authenticated/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/_authenticated/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
@@ -222,6 +298,7 @@ export interface FileRoutesById {
   '/_authenticated/impact/history': typeof AuthenticatedImpactHistoryRoute
   '/_authenticated/impact/volunteer': typeof AuthenticatedImpactVolunteerRoute
   '/_authenticated/notifications/settings': typeof AuthenticatedNotificationsSettingsRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/impact/': typeof AuthenticatedImpactIndexRoute
   '/_authenticated/impact/opportunity/$opportunityId': typeof AuthenticatedImpactOpportunityOpportunityIdRoute
 }
@@ -230,6 +307,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/admin'
     | '/businesses'
     | '/directory'
     | '/events'
@@ -237,6 +315,12 @@ export interface FileRouteTypes {
     | '/impact'
     | '/more'
     | '/notifications'
+    | '/admin/announcements'
+    | '/admin/businesses'
+    | '/admin/events'
+    | '/admin/groups'
+    | '/admin/members'
+    | '/admin/volunteer'
     | '/announcements/$announcementId'
     | '/businesses/$businessId'
     | '/directory/$memberId'
@@ -247,6 +331,7 @@ export interface FileRouteTypes {
     | '/impact/history'
     | '/impact/volunteer'
     | '/notifications/settings'
+    | '/admin/'
     | '/impact/'
     | '/impact/opportunity/$opportunityId'
   fileRoutesByTo: FileRoutesByTo
@@ -259,6 +344,12 @@ export interface FileRouteTypes {
     | '/more'
     | '/notifications'
     | '/'
+    | '/admin/announcements'
+    | '/admin/businesses'
+    | '/admin/events'
+    | '/admin/groups'
+    | '/admin/members'
+    | '/admin/volunteer'
     | '/announcements/$announcementId'
     | '/businesses/$businessId'
     | '/directory/$memberId'
@@ -269,12 +360,14 @@ export interface FileRouteTypes {
     | '/impact/history'
     | '/impact/volunteer'
     | '/notifications/settings'
+    | '/admin'
     | '/impact'
     | '/impact/opportunity/$opportunityId'
   id:
     | '__root__'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/admin'
     | '/_authenticated/businesses'
     | '/_authenticated/directory'
     | '/_authenticated/events'
@@ -283,6 +376,12 @@ export interface FileRouteTypes {
     | '/_authenticated/more'
     | '/_authenticated/notifications'
     | '/_authenticated/'
+    | '/_authenticated/admin/announcements'
+    | '/_authenticated/admin/businesses'
+    | '/_authenticated/admin/events'
+    | '/_authenticated/admin/groups'
+    | '/_authenticated/admin/members'
+    | '/_authenticated/admin/volunteer'
     | '/_authenticated/announcements/$announcementId'
     | '/_authenticated/businesses/$businessId'
     | '/_authenticated/directory/$memberId'
@@ -293,6 +392,7 @@ export interface FileRouteTypes {
     | '/_authenticated/impact/history'
     | '/_authenticated/impact/volunteer'
     | '/_authenticated/notifications/settings'
+    | '/_authenticated/admin/'
     | '/_authenticated/impact/'
     | '/_authenticated/impact/opportunity/$opportunityId'
   fileRoutesById: FileRoutesById
@@ -374,12 +474,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBusinessesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/impact/': {
       id: '/_authenticated/impact/'
       path: '/'
       fullPath: '/impact/'
       preLoaderRoute: typeof AuthenticatedImpactIndexRouteImport
       parentRoute: typeof AuthenticatedImpactRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/notifications/settings': {
       id: '/_authenticated/notifications/settings'
@@ -451,6 +565,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAnnouncementsAnnouncementIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/volunteer': {
+      id: '/_authenticated/admin/volunteer'
+      path: '/volunteer'
+      fullPath: '/admin/volunteer'
+      preLoaderRoute: typeof AuthenticatedAdminVolunteerRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/members': {
+      id: '/_authenticated/admin/members'
+      path: '/members'
+      fullPath: '/admin/members'
+      preLoaderRoute: typeof AuthenticatedAdminMembersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/groups': {
+      id: '/_authenticated/admin/groups'
+      path: '/groups'
+      fullPath: '/admin/groups'
+      preLoaderRoute: typeof AuthenticatedAdminGroupsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/events': {
+      id: '/_authenticated/admin/events'
+      path: '/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AuthenticatedAdminEventsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/businesses': {
+      id: '/_authenticated/admin/businesses'
+      path: '/businesses'
+      fullPath: '/admin/businesses'
+      preLoaderRoute: typeof AuthenticatedAdminBusinessesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/announcements': {
+      id: '/_authenticated/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AuthenticatedAdminAnnouncementsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/impact/opportunity/$opportunityId': {
       id: '/_authenticated/impact/opportunity/$opportunityId'
       path: '/opportunity/$opportunityId'
@@ -460,6 +616,29 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAnnouncementsRoute: typeof AuthenticatedAdminAnnouncementsRoute
+  AuthenticatedAdminBusinessesRoute: typeof AuthenticatedAdminBusinessesRoute
+  AuthenticatedAdminEventsRoute: typeof AuthenticatedAdminEventsRoute
+  AuthenticatedAdminGroupsRoute: typeof AuthenticatedAdminGroupsRoute
+  AuthenticatedAdminMembersRoute: typeof AuthenticatedAdminMembersRoute
+  AuthenticatedAdminVolunteerRoute: typeof AuthenticatedAdminVolunteerRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAnnouncementsRoute: AuthenticatedAdminAnnouncementsRoute,
+  AuthenticatedAdminBusinessesRoute: AuthenticatedAdminBusinessesRoute,
+  AuthenticatedAdminEventsRoute: AuthenticatedAdminEventsRoute,
+  AuthenticatedAdminGroupsRoute: AuthenticatedAdminGroupsRoute,
+  AuthenticatedAdminMembersRoute: AuthenticatedAdminMembersRoute,
+  AuthenticatedAdminVolunteerRoute: AuthenticatedAdminVolunteerRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
 
 interface AuthenticatedBusinessesRouteChildren {
   AuthenticatedBusinessesBusinessIdRoute: typeof AuthenticatedBusinessesBusinessIdRoute
@@ -550,6 +729,7 @@ const AuthenticatedNotificationsRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedBusinessesRoute: typeof AuthenticatedBusinessesRouteWithChildren
   AuthenticatedDirectoryRoute: typeof AuthenticatedDirectoryRouteWithChildren
   AuthenticatedEventsRoute: typeof AuthenticatedEventsRouteWithChildren
@@ -562,6 +742,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedBusinessesRoute: AuthenticatedBusinessesRouteWithChildren,
   AuthenticatedDirectoryRoute: AuthenticatedDirectoryRouteWithChildren,
   AuthenticatedEventsRoute: AuthenticatedEventsRouteWithChildren,

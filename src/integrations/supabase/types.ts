@@ -19,18 +19,21 @@ export type Database = {
           content: string | null
           created_at: string
           id: string
+          published: boolean
           title: string
         }
         Insert: {
           content?: string | null
           created_at?: string
           id?: string
+          published?: boolean
           title: string
         }
         Update: {
           content?: string | null
           created_at?: string
           id?: string
+          published?: boolean
           title?: string
         }
         Relationships: []
@@ -38,6 +41,7 @@ export type Database = {
       businesses: {
         Row: {
           address: string | null
+          approved: boolean
           business_name: string
           category: string | null
           created_at: string
@@ -51,6 +55,7 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          approved?: boolean
           business_name: string
           category?: string | null
           created_at?: string
@@ -64,6 +69,7 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          approved?: boolean
           business_name?: string
           category?: string | null
           created_at?: string
@@ -250,24 +256,30 @@ export type Database = {
       }
       groups: {
         Row: {
+          committee: string | null
           created_at: string
           description: string | null
           icon: string | null
           id: string
+          leader_user_id: string | null
           name: string
         }
         Insert: {
+          committee?: string | null
           created_at?: string
           description?: string | null
           icon?: string | null
           id?: string
+          leader_user_id?: string | null
           name: string
         }
         Update: {
+          committee?: string | null
           created_at?: string
           description?: string | null
           icon?: string | null
           id?: string
+          leader_user_id?: string | null
           name?: string
         }
         Relationships: []
@@ -284,6 +296,7 @@ export type Database = {
           mobile: string | null
           occupation: string | null
           profile_photo: string | null
+          status: string
           suburb: string | null
           user_id: string | null
         }
@@ -298,6 +311,7 @@ export type Database = {
           mobile?: string | null
           occupation?: string | null
           profile_photo?: string | null
+          status?: string
           suburb?: string | null
           user_id?: string | null
         }
@@ -312,6 +326,7 @@ export type Database = {
           mobile?: string | null
           occupation?: string | null
           profile_photo?: string | null
+          status?: string
           suburb?: string | null
           user_id?: string | null
         }
@@ -346,6 +361,30 @@ export type Database = {
           ref_id?: string | null
           title?: string
           type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          committee: string | null
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          committee?: string | null
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          committee?: string | null
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
         }
         Relationships: []
@@ -450,9 +489,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_committee_leader_of: {
+        Args: { _committee: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
+      app_role: "member" | "committee_member" | "committee_leader" | "admin"
       rsvp_status: "going" | "interested" | "not_attending"
     }
     CompositeTypes: {
@@ -581,6 +631,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["member", "committee_member", "committee_leader", "admin"],
       rsvp_status: ["going", "interested", "not_attending"],
     },
   },

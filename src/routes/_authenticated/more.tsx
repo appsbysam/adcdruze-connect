@@ -1,8 +1,9 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Briefcase, Phone, Mail, Globe, HeartHandshake, Gift, Settings, LogOut, Shield, FileText, ArrowRight } from "lucide-react";
+import { Briefcase, Phone, Mail, Globe, HeartHandshake, Gift, Settings, LogOut, Shield, FileText, ArrowRight, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
+import { useUserRoles } from "@/hooks/use-user-role";
 
 export const Route = createFileRoute("/_authenticated/more")({
   head: () => ({ meta: [{ title: "More — ADC" }] }),
@@ -11,6 +12,7 @@ export const Route = createFileRoute("/_authenticated/more")({
 
 function MorePage() {
   const navigate = useNavigate();
+  const { canAccessAdmin, isAdmin } = useUserRoles();
   const { data: businesses = [] } = useQuery({
     queryKey: ["businesses"],
     queryFn: async () => {
@@ -78,6 +80,15 @@ function MorePage() {
       <section>
         <h2 className="text-base font-semibold mb-3">Community</h2>
         <div className="bg-card border rounded-2xl shadow-soft divide-y divide-border overflow-hidden">
+          {canAccessAdmin && (
+            <Link to="/admin" className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-muted/40 text-left">
+              <span className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                <ShieldCheck className="size-4 text-primary" />
+              </span>
+              <span className="text-sm font-medium flex-1">{isAdmin ? "Admin console" : "Committee tools"}</span>
+              <ArrowRight className="size-4 text-muted-foreground" />
+            </Link>
+          )}
           {links.map((l) => {
             const Icon = l.icon;
             const content = (
