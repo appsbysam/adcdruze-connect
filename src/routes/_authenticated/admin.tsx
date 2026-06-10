@@ -9,15 +9,16 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminLayout,
 });
 
-const NAV = [
+type NavItem = { to: string; label: string; icon: typeof Users; exact?: boolean; adminOnly?: boolean };
+const NAV: NavItem[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, adminOnly: true },
   { to: "/admin/members", label: "Members", icon: Users, adminOnly: true },
-  { to: "/admin/events", label: "Events", icon: Calendar, adminOnly: false },
-  { to: "/admin/groups", label: "Groups", icon: UsersRound, adminOnly: false },
+  { to: "/admin/events", label: "Events", icon: Calendar },
+  { to: "/admin/groups", label: "Groups", icon: UsersRound },
   { to: "/admin/businesses", label: "Businesses", icon: Briefcase, adminOnly: true },
-  { to: "/admin/volunteer", label: "Volunteer", icon: HeartHandshake, adminOnly: false },
+  { to: "/admin/volunteer", label: "Volunteer", icon: HeartHandshake },
   { to: "/admin/announcements", label: "Announcements", icon: Megaphone, adminOnly: true },
-] as const;
+];
 
 function AdminLayout() {
   const { canAccessAdmin, isAdmin, loading } = useUserRoles();
