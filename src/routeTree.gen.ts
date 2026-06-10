@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
 import { Route as AuthenticatedMoreRouteImport } from './routes/_authenticated/more'
 import { Route as AuthenticatedImpactRouteImport } from './routes/_authenticated/impact'
 import { Route as AuthenticatedGroupsRouteImport } from './routes/_authenticated/groups'
@@ -43,6 +44,12 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMoreRoute = AuthenticatedMoreRouteImport.update({
   id: '/more',
   path: '/more',
@@ -143,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/groups': typeof AuthenticatedGroupsRouteWithChildren
   '/impact': typeof AuthenticatedImpactRouteWithChildren
   '/more': typeof AuthenticatedMoreRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRoute
@@ -161,6 +169,7 @@ export interface FileRoutesByTo {
   '/events': typeof AuthenticatedEventsRouteWithChildren
   '/groups': typeof AuthenticatedGroupsRouteWithChildren
   '/more': typeof AuthenticatedMoreRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/': typeof AuthenticatedIndexRoute
   '/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
@@ -183,6 +192,7 @@ export interface FileRoutesById {
   '/_authenticated/groups': typeof AuthenticatedGroupsRouteWithChildren
   '/_authenticated/impact': typeof AuthenticatedImpactRouteWithChildren
   '/_authenticated/more': typeof AuthenticatedMoreRoute
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/businesses/$businessId': typeof AuthenticatedBusinessesBusinessIdRoute
   '/_authenticated/directory/$memberId': typeof AuthenticatedDirectoryMemberIdRoute
@@ -206,6 +216,7 @@ export interface FileRouteTypes {
     | '/groups'
     | '/impact'
     | '/more'
+    | '/notifications'
     | '/businesses/$businessId'
     | '/directory/$memberId'
     | '/events/$eventId'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/groups'
     | '/more'
+    | '/notifications'
     | '/'
     | '/businesses/$businessId'
     | '/directory/$memberId'
@@ -245,6 +257,7 @@ export interface FileRouteTypes {
     | '/_authenticated/groups'
     | '/_authenticated/impact'
     | '/_authenticated/more'
+    | '/_authenticated/notifications'
     | '/_authenticated/'
     | '/_authenticated/businesses/$businessId'
     | '/_authenticated/directory/$memberId'
@@ -284,6 +297,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/more': {
@@ -481,6 +501,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedGroupsRoute: typeof AuthenticatedGroupsRouteWithChildren
   AuthenticatedImpactRoute: typeof AuthenticatedImpactRouteWithChildren
   AuthenticatedMoreRoute: typeof AuthenticatedMoreRoute
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
@@ -491,6 +512,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGroupsRoute: AuthenticatedGroupsRouteWithChildren,
   AuthenticatedImpactRoute: AuthenticatedImpactRouteWithChildren,
   AuthenticatedMoreRoute: AuthenticatedMoreRoute,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 
