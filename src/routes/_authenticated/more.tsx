@@ -1,8 +1,9 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Briefcase, Phone, Mail, Globe, HeartHandshake, Gift, Settings, LogOut, Shield, FileText, ArrowRight } from "lucide-react";
+import { Briefcase, Phone, Mail, Globe, HeartHandshake, Gift, Settings, LogOut, Shield, FileText, ArrowRight, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
+import { useUserRoles } from "@/hooks/use-user-role";
 
 export const Route = createFileRoute("/_authenticated/more")({
   head: () => ({ meta: [{ title: "More — ADC" }] }),
