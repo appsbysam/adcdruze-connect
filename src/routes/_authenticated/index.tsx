@@ -87,10 +87,10 @@ function HomePage() {
           <h1 className="text-2xl font-bold tracking-tight leading-tight">Australian Druze<br />Community</h1>
           <p className="text-sm text-muted-foreground mt-1">Stay connected. Stay informed. Stay involved.</p>
         </div>
-        <button className="relative size-10 rounded-full bg-white border border-border shadow-soft flex items-center justify-center">
+        <Link to="/notifications" className="relative size-10 rounded-full bg-white border border-border shadow-soft flex items-center justify-center">
           <Bell className="size-5 text-foreground" />
           <span className="absolute top-2 right-2 size-2 rounded-full bg-[color:var(--brand-events)]" />
-        </button>
+        </Link>
       </header>
 
       {/* Featured event */}
