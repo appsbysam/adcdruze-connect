@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Bell, Calendar, Users, UsersRound, Briefcase, HeartHandshake, Gift, MapPin, ArrowRight, Megaphone } from "lucide-react";
 import heroPicnic from "@/assets/hero-picnic.jpg";
 
-export const Route = createFileRoute("/_authenticated/home")({
+export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
     meta: [
       { title: "Home — Australian Druze Community" },
