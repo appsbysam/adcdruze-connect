@@ -95,7 +95,7 @@ function HomePage() {
 
       {/* Featured event */}
       {featured && (
-        <article className="relative overflow-hidden rounded-2xl shadow-card">
+        <Link to="/events/$eventId" params={{ eventId: featured.id }} className="block relative overflow-hidden rounded-2xl shadow-card">
           <img src={heroPicnic} alt={featured.title} className="w-full h-56 object-cover" width={1280} height={768} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 p-5 text-white">
@@ -105,12 +105,13 @@ function HomePage() {
               <span>{fmtDate(featured.date)} · {fmtTime(featured.date)}</span>
             </p>
             <p className="text-sm opacity-90 flex items-center gap-1.5"><MapPin className="size-3.5" />{featured.location}</p>
-            <button className="mt-3 inline-flex items-center gap-1.5 bg-white text-foreground text-sm font-semibold px-4 py-2 rounded-full">
-              RSVP <ArrowRight className="size-4" />
-            </button>
+            <span className="mt-3 inline-flex items-center gap-1.5 bg-white text-foreground text-sm font-semibold px-4 py-2 rounded-full">
+              View & RSVP <ArrowRight className="size-4" />
+            </span>
           </div>
-        </article>
+        </Link>
       )}
+
 
       {/* Quick access */}
       <section>
@@ -152,7 +153,12 @@ function HomePage() {
         </div>
         <div className="space-y-2.5">
           {upcoming.map((e) => (
-            <div key={e.id} className="bg-card border rounded-2xl p-3.5 flex gap-3 items-center shadow-soft">
+            <Link
+              key={e.id}
+              to="/events/$eventId"
+              params={{ eventId: e.id }}
+              className="bg-card border rounded-2xl p-3.5 flex gap-3 items-center shadow-soft hover:shadow-card transition-shadow"
+            >
               <div className="size-14 rounded-xl bg-[color:var(--brand-events-soft)] flex flex-col items-center justify-center shrink-0">
                 <span className="text-[10px] uppercase font-semibold text-[color:var(--brand-events)]">{new Date(e.date).toLocaleDateString("en-AU", { month: "short" })}</span>
                 <span className="text-lg font-bold leading-none text-[color:var(--brand-events)]">{new Date(e.date).getDate()}</span>
@@ -161,8 +167,9 @@ function HomePage() {
                 <p className="font-semibold truncate">{e.title}</p>
                 <p className="text-xs text-muted-foreground">{fmtTime(e.date)} · {e.location}</p>
               </div>
-            </div>
+            </Link>
           ))}
+
         </div>
       </section>
 
