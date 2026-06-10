@@ -77,6 +77,42 @@ export type Database = {
         }
         Relationships: []
       }
+      donations: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          donor_name: string | null
+          frequency: string
+          id: string
+          message: string | null
+          receipt_number: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          created_at?: string
+          donor_name?: string | null
+          frequency?: string
+          id?: string
+          message?: string | null
+          receipt_number?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          donor_name?: string | null
+          frequency?: string
+          id?: string
+          message?: string | null
+          receipt_number?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       event_rsvps: {
         Row: {
           created_at: string
@@ -280,6 +316,101 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      volunteer_opportunities: {
+        Row: {
+          committee: string
+          created_at: string
+          date: string
+          description: string | null
+          end_time: string | null
+          event_name: string
+          hours_estimate: number
+          id: string
+          location: string
+          organiser_email: string | null
+          organiser_name: string | null
+          organiser_phone: string | null
+          requirements: string | null
+          start_time: string
+          time_commitment: string | null
+          updated_at: string
+          volunteers_required: number
+        }
+        Insert: {
+          committee: string
+          created_at?: string
+          date: string
+          description?: string | null
+          end_time?: string | null
+          event_name: string
+          hours_estimate?: number
+          id?: string
+          location: string
+          organiser_email?: string | null
+          organiser_name?: string | null
+          organiser_phone?: string | null
+          requirements?: string | null
+          start_time: string
+          time_commitment?: string | null
+          updated_at?: string
+          volunteers_required?: number
+        }
+        Update: {
+          committee?: string
+          created_at?: string
+          date?: string
+          description?: string | null
+          end_time?: string | null
+          event_name?: string
+          hours_estimate?: number
+          id?: string
+          location?: string
+          organiser_email?: string | null
+          organiser_name?: string | null
+          organiser_phone?: string | null
+          requirements?: string | null
+          start_time?: string
+          time_commitment?: string | null
+          updated_at?: string
+          volunteers_required?: number
+        }
+        Relationships: []
+      }
+      volunteer_registrations: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          opportunity_id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          opportunity_id: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          opportunity_id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "volunteer_registrations_opportunity_id_fkey"
+            columns: ["opportunity_id"]
+            isOneToOne: false
+            referencedRelation: "volunteer_opportunities"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
