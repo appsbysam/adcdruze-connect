@@ -1,16 +1,15 @@
 import { defineConfig } from "vite";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
-import { nitro } from "nitro/vite";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
 export default defineConfig({
+  base: "/adcdruze-connect/",
   plugins: [
+    tanstackRouter({ target: "react", autoCodeSplitting: true }),
     tsConfigPaths(),
-    tanstackStart(),
-    viteReact(),
+    react(),
     tailwindcss(),
-    nitro(),
   ],
 });
