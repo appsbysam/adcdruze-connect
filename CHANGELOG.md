@@ -2,6 +2,18 @@
 
 All meaningful application changes should be recorded here and accompanied by an appropriate semantic version increment.
 
+## v0.3.1 — 27 August 2026
+
+### Fixed
+- Activated the previously non-functional **Privacy policy**, **Terms of use**, and **Account settings** rows on the More screen.
+- Account Settings now loads the signed-in member profile and saves editable member details to the database.
+- Notification preference switches now persist to Supabase instead of resetting whenever the screen is reopened.
+- Member profile detail rows for email, mobile and suburb now perform the expected email, call and map actions.
+- Removed the obsolete hard-coded `v1.0` label from the More screen so the global release version remains authoritative.
+
+### Audited
+- Checked bottom navigation and the main event, group, business, directory, notification, donation and volunteer navigation flows for dead routes and inactive controls.
+
 ## v0.3.0 — 26 August 2026
 
 ### Added
