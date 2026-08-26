@@ -3,18 +3,18 @@
   "name": "Australian Druze Community",
   "short_name": "ADC",
   "description": "A private community platform for Australian Druze Community members.",
-  "start_url": "./?appv=0.3.0",
+  "start_url": "./?appv=0.3.1",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#081321",
   "theme_color": "#081321",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "categories": ["social", "lifestyle", "community"],
   "icons": [
-    { "src": "assets/icon-48.webp?v=030", "sizes": "48x48", "type": "image/webp", "purpose": "any" },
-    { "src": "assets/icon-192.webp?v=030", "sizes": "192x192", "type": "image/webp", "purpose": "any" },
-    { "src": "assets/icon-512.webp?v=030", "sizes": "512x512", "type": "image/webp", "purpose": "any" },
-    { "src": "assets/icon-maskable-512.webp?v=030", "sizes": "512x512", "type": "image/webp", "purpose": "maskable" }
+    { "src": "assets/icon-48.webp?v=031", "sizes": "48x48", "type": "image/webp", "purpose": "any" },
+    { "src": "assets/icon-192.webp?v=031", "sizes": "192x192", "type": "image/webp", "purpose": "any" },
+    { "src": "assets/icon-512.webp?v=031", "sizes": "512x512", "type": "image/webp", "purpose": "any" },
+    { "src": "assets/icon-maskable-512.webp?v=031", "sizes": "512x512", "type": "image/webp", "purpose": "maskable" }
   ]
 }
