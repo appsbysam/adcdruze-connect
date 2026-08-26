@@ -3,134 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, MapPin, Mail, Phone, Briefcase, Users, MessageCircle } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/directory/$memberId")({
-  head: () => ({ meta: [{ title: "Member — ADC" }] }),
-  errorComponent: ({ error }) => (
-    <div className="p-8 text-center">
-      <p className="text-sm text-destructive">{error.message}</p>
-      <Link to="/directory" className="text-sm text-[color:var(--brand-directory)] font-semibold mt-3 inline-block">Back to directory</Link>
-    </div>
-  ),
-  notFoundComponent: () => (
-    <div className="p-8 text-center">
-      <p className="text-sm text-muted-foreground">Member not found.</p>
-      <Link to="/directory" className="text-sm text-[color:var(--brand-directory)] font-semibold mt-3 inline-block">Back to directory</Link>
-    </div>
-  ),
-  component: MemberProfilePage,
-});
+export const Route = createFileRoute("/_authenticated/directory/$memberId")({ head: () => ({ meta: [{ title: "Member — ADC" }] }), component: MemberProfilePage });
 
 function MemberProfilePage() {
-  const { memberId } = Route.useParams();
-  const router = useRouter();
-
-  const { data: member, isLoading } = useQuery({
-    queryKey: ["member", memberId],
-    queryFn: async () => {
-      const { data, error } = await supabase.from("members").select("*").eq("id", memberId).maybeSingle();
-      if (error) throw error;
-      return data;
-    },
-  });
-
+  const { memberId } = Route.useParams(); const router = useRouter();
+  const { data: member, isLoading } = useQuery({ queryKey: ["member", memberId], queryFn: async () => { const { data, error } = await supabase.from("members").select("*").eq("id", memberId).maybeSingle(); if (error) throw error; return data; } });
   if (isLoading) return <div className="p-8 text-center text-sm text-muted-foreground">Loading…</div>;
-  if (!member) return <div className="p-8 text-center text-sm text-muted-foreground">Member not found.</div>;
-
-  return (
-    <div className="pb-10">
-      {/* Header band */}
-      <div className="relative bg-gradient-to-br from-[color:var(--brand-directory)] to-[#E59A00] h-40">
-        <button
-          onClick={() => router.history.back()}
-          className="absolute top-4 left-4 size-10 rounded-full bg-white/95 flex items-center justify-center shadow-card"
-          aria-label="Back"
-        >
-          <ArrowLeft className="size-5" />
-        </button>
-      </div>
-
-      <div className="px-5 -mt-12 space-y-5">
-        {/* Avatar + name */}
-        <div className="flex flex-col items-center text-center">
-          <span className="size-24 rounded-full bg-card border-4 border-card shadow-card flex items-center justify-center text-3xl font-bold text-[color:var(--brand-directory)]">
-            {member.first_name?.[0]}{member.last_name?.[0]}
-          </span>
-          <h1 className="mt-3 text-2xl font-bold">{member.first_name} {member.last_name}</h1>
-          {member.occupation && (
-            <p className="text-sm text-muted-foreground flex items-center gap-1.5 mt-1">
-              <Briefcase className="size-3.5" /> {member.occupation}
-            </p>
-          )}
-          <div className="flex flex-wrap justify-center gap-1.5 mt-3">
-            {member.suburb && (
-              <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-[color:var(--brand-directory-soft)] text-[color:var(--brand-directory)]">
-                <MapPin className="size-3" />{member.suburb}
-              </span>
-            )}
-            {member.committee && (
-              <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-[color:var(--brand-groups-soft)] text-[color:var(--brand-groups)]">
-                <Users className="size-3" />{member.committee} Committee
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Quick actions */}
-        <div className="grid grid-cols-3 gap-2">
-          {member.mobile && (
-            <a href={`tel:${member.mobile}`} className="flex flex-col items-center gap-1 bg-card border rounded-2xl py-3 shadow-soft">
-              <Phone className="size-5 text-[color:var(--brand-home)]" />
-              <span className="text-xs font-semibold">Call</span>
-            </a>
-          )}
-          {member.email && (
-            <a href={`mailto:${member.email}`} className="flex flex-col items-center gap-1 bg-card border rounded-2xl py-3 shadow-soft">
-              <Mail className="size-5 text-[color:var(--brand-events)]" />
-              <span className="text-xs font-semibold">Email</span>
-            </a>
-          )}
-          {member.mobile && (
-            <a
-              href={`sms:${member.mobile}`}
-              className="flex flex-col items-center gap-1 bg-card border rounded-2xl py-3 shadow-soft"
-            >
-              <MessageCircle className="size-5 text-[color:var(--brand-groups)]" />
-              <span className="text-xs font-semibold">Message</span>
-            </a>
-          )}
-        </div>
-
-        {/* Bio */}
-        {member.bio && (
-          <section className="bg-card border rounded-2xl p-4 shadow-soft">
-            <h2 className="text-sm font-semibold mb-1.5">About</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
-          </section>
-        )}
-
-        {/* Details */}
-        <section className="bg-card border rounded-2xl divide-y shadow-soft">
-          {member.email && <DetailRow icon={Mail} label="Email" value={member.email} />}
-          {member.mobile && <DetailRow icon={Phone} label="Mobile" value={member.mobile} />}
-          {member.suburb && <DetailRow icon={MapPin} label="Suburb" value={member.suburb} />}
-          {member.occupation && <DetailRow icon={Briefcase} label="Occupation" value={member.occupation} />}
-          {member.committee && <DetailRow icon={Users} label="Committee" value={member.committee} />}
-        </section>
-      </div>
-    </div>
-  );
+  if (!member) return <div className="p-8 text-center"><p className="text-sm text-muted-foreground">Member not found.</p><Link to="/directory" className="text-sm text-[color:var(--brand-directory)] font-semibold mt-3 inline-block">Back to directory</Link></div>;
+  const mapsUrl = member.suburb ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(member.suburb)}` : undefined;
+  return <div className="pb-10"><div className="relative bg-gradient-to-br from-[color:var(--brand-directory)] to-[#E59A00] h-40"><button onClick={() => router.history.back()} className="absolute top-4 left-4 size-10 rounded-full bg-white/95 flex items-center justify-center shadow-card" aria-label="Back"><ArrowLeft className="size-5" /></button></div>
+    <div className="px-5 -mt-12 space-y-5"><div className="flex flex-col items-center text-center"><span className="size-24 rounded-full bg-card border-4 border-card shadow-card flex items-center justify-center text-3xl font-bold text-[color:var(--brand-directory)]">{member.first_name?.[0]}{member.last_name?.[0]}</span><h1 className="mt-3 text-2xl font-bold">{member.first_name} {member.last_name}</h1>{member.occupation && <p className="text-sm text-muted-foreground flex items-center gap-1.5 mt-1"><Briefcase className="size-3.5" /> {member.occupation}</p>}<div className="flex flex-wrap justify-center gap-1.5 mt-3">{member.suburb && <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-[color:var(--brand-directory-soft)] text-[color:var(--brand-directory)]"><MapPin className="size-3" />{member.suburb}</span>}{member.committee && <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-[color:var(--brand-groups-soft)] text-[color:var(--brand-groups)]"><Users className="size-3" />{member.committee} Committee</span>}</div></div>
+    <div className="grid grid-cols-3 gap-2">{member.mobile && <a href={`tel:${member.mobile}`} className="flex flex-col items-center gap-1 bg-card border rounded-2xl py-3 shadow-soft"><Phone className="size-5 text-[color:var(--brand-home)]" /><span className="text-xs font-semibold">Call</span></a>}{member.email && <a href={`mailto:${member.email}`} className="flex flex-col items-center gap-1 bg-card border rounded-2xl py-3 shadow-soft"><Mail className="size-5 text-[color:var(--brand-events)]" /><span className="text-xs font-semibold">Email</span></a>}{member.mobile && <a href={`sms:${member.mobile}`} className="flex flex-col items-center gap-1 bg-card border rounded-2xl py-3 shadow-soft"><MessageCircle className="size-5 text-[color:var(--brand-groups)]" /><span className="text-xs font-semibold">Message</span></a>}</div>
+    {member.bio && <section className="bg-card border rounded-2xl p-4 shadow-soft"><h2 className="text-sm font-semibold mb-1.5">About</h2><p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p></section>}
+    <section className="bg-card border rounded-2xl divide-y shadow-soft">{member.email && <DetailRow icon={Mail} label="Email" value={member.email} href={`mailto:${member.email}`} />}{member.mobile && <DetailRow icon={Phone} label="Mobile" value={member.mobile} href={`tel:${member.mobile}`} />}{member.suburb && <DetailRow icon={MapPin} label="Suburb" value={member.suburb} href={mapsUrl} />}{member.occupation && <DetailRow icon={Briefcase} label="Occupation" value={member.occupation} />}{member.committee && <DetailRow icon={Users} label="Committee" value={member.committee} />}</section></div></div>;
 }
-
-function DetailRow({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
-  return (
-    <div className="p-4 flex items-center gap-3">
-      <span className="size-9 rounded-xl bg-muted flex items-center justify-center shrink-0">
-        <Icon className="size-4 text-muted-foreground" />
-      </span>
-      <div className="min-w-0">
-        <p className="text-[11px] uppercase tracking-wider text-muted-foreground">{label}</p>
-        <p className="text-sm font-semibold truncate">{value}</p>
-      </div>
-    </div>
-  );
-}
+function DetailRow({ icon: Icon, label, value, href }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string; href?: string }) { const inner=<div className="p-4 flex items-center gap-3"><span className="size-9 rounded-xl bg-muted flex items-center justify-center shrink-0"><Icon className="size-4 text-muted-foreground" /></span><div className="min-w-0 flex-1"><p className="text-[11px] uppercase tracking-wider text-muted-foreground">{label}</p><p className="text-sm font-semibold truncate">{value}</p></div>{href && <span className="text-xs text-[color:var(--brand-groups)]">Open</span>}</div>; return href ? <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>{inner}</a> : inner; }
