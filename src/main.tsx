@@ -4,7 +4,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { getRouter } from "./router";
 import "./styles.css";
 
-const APP_VERSION = "0.1.0.1";
+const APP_VERSION = "0.2.0";
 const router = getRouter();
 
 function AppVersion() {
@@ -14,17 +14,18 @@ function AppVersion() {
       style={{
         position: "fixed",
         right: 10,
-        bottom: "calc(env(safe-area-inset-bottom, 0px) + 76px)",
+        top: "calc(env(safe-area-inset-top, 0px) + 10px)",
         zIndex: 9998,
         fontSize: 10,
         fontWeight: 600,
         letterSpacing: "0.02em",
-        color: "rgba(15, 23, 42, 0.58)",
-        background: "rgba(255,255,255,.72)",
-        border: "1px solid rgba(148,163,184,.28)",
+        color: "rgba(15, 23, 42, 0.68)",
+        background: "rgba(255,255,255,.82)",
+        border: "1px solid rgba(148,163,184,.32)",
         borderRadius: 999,
         padding: "3px 7px",
         backdropFilter: "blur(8px)",
+        pointerEvents: "none",
       }}
     >
       v{APP_VERSION}
