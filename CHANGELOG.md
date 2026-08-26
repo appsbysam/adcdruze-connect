@@ -2,6 +2,13 @@
 
 All meaningful application changes should be recorded here and accompanied by an appropriate semantic version increment.
 
+## v0.3.2 — 27 August 2026
+
+### Fixed
+- Repositioned the global version badge into its own top-right lane so it no longer overlays the Notifications bell or other top-right action buttons.
+- Kept the version badge fixed to the viewport so it stays in exactly the same screen position while page content scrolls.
+- Added sufficient horizontal separation between the version badge and notification/settings/share controls.
+
 ## v0.3.1 — 27 August 2026
 
 ### Fixed
