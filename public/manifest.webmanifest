@@ -10,7 +10,7 @@
   "orientation": "portrait-primary",
   "background_color": "#081321",
   "theme_color": "#081321",
-  "version": "0.1.0.1",
+  "version": "0.2.0",
   "categories": ["social", "lifestyle", "community"],
   "icons": [
     { "src": "assets/icon-48.svg", "sizes": "48x48", "type": "image/svg+xml", "purpose": "any" },
