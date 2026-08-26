@@ -1,9 +1,10 @@
-const CACHE_NAME = 'adc-druze-link-v0.1.0.1';
+const CACHE_NAME = 'adc-druze-link-v0.2.0';
 const APP_SCOPE = '/adcdruze-connect/';
 const APP_SHELL = [
   APP_SCOPE,
   `${APP_SCOPE}index.html`,
   `${APP_SCOPE}manifest.webmanifest`,
+  `${APP_SCOPE}assets/logo-source.webp`,
   `${APP_SCOPE}assets/icon-192.svg`,
   `${APP_SCOPE}assets/icon-512.svg`,
   `${APP_SCOPE}assets/icon-maskable.svg`,
