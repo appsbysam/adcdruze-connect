@@ -4,11 +4,13 @@ import { RouterProvider } from "@tanstack/react-router";
 import { getRouter } from "./router";
 import "./styles.css";
 
-const APP_VERSION = "0.3.2";
+const APP_VERSION = "0.4.0";
 const RELEASE_NOTES = [
-  "Repositioned the version badge so it sits beside, never over, top-right action buttons such as Notifications.",
-  "Locked the version badge to the viewport so it remains stationary while page content scrolls.",
-  "Added extra separation from notification, settings and share controls on detail screens.",
+  "Completed a broad connectivity pass across Home, Events, Directory, Groups, Businesses, Volunteer, Donations, Notifications and Admin.",
+  "Connected Home announcements, group cards and community statistics to their relevant screens.",
+  "Improved member and business contact actions, including tappable map/address links and safer website links.",
+  "Verified event RSVP, volunteer registration, group membership/posts, notification routing and admin management flows.",
+  "Retained the fixed version badge and automatic update/cache-busting system.",
 ];
 const router = getRouter();
 
