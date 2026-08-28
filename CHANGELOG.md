@@ -2,6 +2,19 @@
 
 All meaningful application changes should be recorded here and accompanied by an appropriate semantic version increment.
 
+## v0.4.1 — 28 August 2026
+
+### Member directory data
+- Removed the fictional/test member records from the live `members` table.
+- Imported all 393 member rows supplied in `DruzeList_v2 (2).xlsx`.
+- Added dedicated street-address and postcode fields to the member data model and made email optional for spreadsheet-only records.
+- Preserved the supplied names, street addresses, suburbs and postcodes; no telephone numbers, email addresses, occupations, biographies or committee assignments were invented.
+- Updated Directory search to include names, street addresses, suburbs and postcodes.
+- Updated member cards and member profiles to display the imported address information and open the full address in Google Maps.
+
+### Source-data note
+- One supplied spreadsheet row for Ayman El Kasamani contains spreadsheet error/source values (`26/128`, `#VALUE!`, `28,`). Those values were preserved rather than guessed or silently corrected.
+
 ## v0.4.0 — 28 August 2026
 
 ### Connectivity & functionality
